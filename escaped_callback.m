@@ -1,16 +1,15 @@
-function escaped_callback( ~, ~, fcn)
+function escaped_callback(fcn,varargin)
             
     if strcmp(computer,'MACI64') && ~isdeployed
-        fcn();
+        fcn(varargin{:});
     else            
         try
-            fcn();
+            fcn(varargin{:});
         catch e
             d = getReport(e,'extended','hyperlinks','off');
-            d_short = getReport(e,'basic','hyperlinks','off');
-            diagnostics('program','error','error_report',d_short);
+            bug_snag(e);
             clipboard('copy',d);
-            error_dialog2({d});
+            error_dialog({d});
         end
     end
 

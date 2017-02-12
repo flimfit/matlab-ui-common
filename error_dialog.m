@@ -1,15 +1,15 @@
 function varargout = error_dialog(varargin)
-% ERROR_DIALOG2 MATLAB code for error_dialog.fig
-%      ERROR_DIALOG2, by itself, creates a new ERROR_DIALOG2 or raises the existing
+% ERROR_DIALOG MATLAB code for error_dialog.fig
+%      ERROR_DIALOG, by itself, creates a new ERROR_DIALOG or raises the existing
 %      singleton*.
 %
-%      H = ERROR_DIALOG2 returns the handle to a new ERROR_DIALOG2 or the handle to
+%      H = ERROR_DIALOG returns the handle to a new ERROR_DIALOG or the handle to
 %      the existing singleton*.
 %
-%      ERROR_DIALOG2('CALLBACK',hObject,eventData,handles,...) calls the local
-%      function named CALLBACK in ERROR_DIALOG2.M with the given input arguments.
+%      ERROR_DIALOG('CALLBACK',hObject,eventData,handles,...) calls the local
+%      function named CALLBACK in ERROR_DIALOG.M with the given input arguments.
 %
-%      ERROR_DIALOG2('Property','Value',...) creates a new ERROR_DIALOG2 or raises the
+%      ERROR_DIALOG('Property','Value',...) creates a new ERROR_DIALOG or raises the
 %      existing singleton*.  Starting from the left, property value pairs are
 %      applied to the GUI before error_dialog_OpeningFcn gets called.  An
 %      unrecognized property name or invalid value makes property application
@@ -22,7 +22,7 @@ function varargout = error_dialog(varargin)
 
 % Edit the above text to modify the response to help error_dialog
 
-% Last Modified by GUIDE v2.5 22-Mar-2016 11:39:29
+% Last Modified by GUIDE v2.5 12-Feb-2017 15:47:00
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 0;
