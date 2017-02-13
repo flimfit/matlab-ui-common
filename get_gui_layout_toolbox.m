@@ -1,4 +1,4 @@
-function get_gui_layout_toolbox()
+function path = get_gui_layout_toolbox()
 % Add bioformats to path.
 % If required, download from OME and unzip first
 
@@ -15,6 +15,7 @@ function get_gui_layout_toolbox()
     
     end
     
-    addpath([cdir 'layout'])
+    path = [cdir 'layout' filesep];
+    addpath(path);
     
 end

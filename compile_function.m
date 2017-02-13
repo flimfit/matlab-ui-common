@@ -1,5 +1,11 @@
-function compile_function(func_name,program_name)
+function compile_function(func_name,program_name,additional_folders)
     
+    if nargin < 3
+        additional_folders = {};
+    elseif ~iscell(additional_folders)
+        additional_folders = {additional_folders};
+    end
+
     % Get version
     [~,ver] = system('git describe','-echo');
     ver = ver(1:end-1);
@@ -12,8 +18,13 @@ function compile_function(func_name,program_name)
 
     mkdir('build');
     delete(['build' filesep '*']);
-    mcc('-m',func_name, ...
-        '-v', '-d', 'build', '-o', program_name);
+    
+    args = {'-m',func_name, '-v', '-d', 'build', '-o', program_name};
+    for i=1:length(additional_folders)
+        args = [args {'-a' additional_folders{i}}];
+    end
+    
+    mcc(args{:});
         
     if ispc
         ext = '.exe';
@@ -24,7 +35,7 @@ function compile_function(func_name,program_name)
     new_file = [program_name ' ' ver ' ' computer('arch')];
     movefile(['build' filesep program_name ext], ['build' filesep new_file ext]);
     
-    if ismac
+    if ismacl
         mkdir(['build' filesep 'dist']);
         movefile(['build' filesep new_file ext], ['build' filesep 'dist' filesep new_file ext]);
         cmd = ['hdiutil create "./build/' new_file '.dmg" -srcfolder ./build/dist/ -volname "' new_file '" -ov'];
