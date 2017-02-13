@@ -35,7 +35,7 @@ function compile_function(func_name,program_name,additional_folders)
     new_file = [program_name ' ' ver ' ' computer('arch')];
     movefile(['build' filesep program_name ext], ['build' filesep new_file ext]);
     
-    if ismacl
+    if ismac
         mkdir(['build' filesep 'dist']);
         movefile(['build' filesep new_file ext], ['build' filesep 'dist' filesep new_file ext]);
         cmd = ['hdiutil create "./build/' new_file '.dmg" -srcfolder ./build/dist/ -volname "' new_file '" -ov'];
