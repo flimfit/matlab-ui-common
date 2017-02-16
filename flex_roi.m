@@ -23,7 +23,9 @@ classdef flex_roi < handle
             if strcmp(obj.type,'poly')
                 obj.shape = line(obj.ax,0,0,'Color','r','MarkerFaceColor','r',...
                               'LineWidth',2,'Marker','o');
-
+            elseif strcmp(obj.type,'freehand')
+                obj.shape = line(obj.ax,0,0,'Color','r','MarkerFaceColor','r',...
+                              'LineWidth',2,'Marker','none');
             else
                 obj.shape = patch(obj.ax,0,0,'r','EdgeColor','r','MarkerFaceColor','r',...
                               'FaceAlpha',0.5,'LineWidth',2);
@@ -37,6 +39,8 @@ classdef flex_roi < handle
                     set(obj.fig, 'WindowButtonMotionFcn', @obj.mouseMoveEllipse);
                 case 'poly'
                     set(obj.fig, 'WindowButtonMotionFcn', @obj.mouseMovePoly);
+                case 'freehand'
+                    set(obj.fig, 'WindowButtonMotionFcn', @obj.mouseMoveFreehand);
             end
             
             set(obj.fig, 'WindowButtonDownFcn', @obj.mouseDown);
@@ -45,8 +49,12 @@ classdef flex_roi < handle
         end
         
         function mouseDown(obj,~,~)
-            C = get(obj.ax, 'CurrentPoint');
-            obj.first_point = C(1,1:2);
+            if isempty(obj.first_point)
+                C = get(obj.ax, 'CurrentPoint');
+                obj.first_point = C(1,1:2);
+            elseif strcmp(obj.type,'freehand')
+                obj.closeRoi();    
+            end
        end
 
 
@@ -105,13 +113,23 @@ classdef flex_roi < handle
             
         end
         
+        function mouseMoveFreehand(obj,~,~)
+            C = get(obj.ax, 'CurrentPoint');
+            C = C(1,1:2);
+            
+            if ~isempty(obj.first_point)
+                obj.points = [obj.points; C];
+                set(obj.shape,'XData',obj.points(:,1),'YData',obj.points(:,2)); 
+            end        
+        end
+        
         function mouseMovePoly(obj,~,~)
             C = get(obj.ax, 'CurrentPoint');
             C = C(1,1:2);
             
             if ~isempty(obj.first_point)
-                p = [obj.points;C];
-                set(obj.shape,'XData',p(:,1),'YData',p(:,2));
+                p = [obj.points; C];
+                set(obj.shape,'XData',p(:,1),'YData',p(:,2)); 
             end        
         end
         
