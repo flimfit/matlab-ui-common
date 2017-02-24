@@ -3,8 +3,9 @@ function path = get_gui_layout_toolbox()
 % If required, download from OME and unzip first
 
     cdir = [fileparts(mfilename('fullpath')) filesep];
+    path = [cdir 'layout' filesep];
 
-    if ~exist([cdir filesep 'layout'], 'dir')
+    if ~exist(path, 'dir')
         
         disp('Downloading gui-layout...');
         url = 'http://au.mathworks.com/matlabcentral/mlc-downloads/downloads/submissions/47982/versions/11/download/zip';
@@ -15,7 +16,6 @@ function path = get_gui_layout_toolbox()
     
     end
     
-    path = [cdir 'layout' filesep];
     addpath(path);
     
 end
