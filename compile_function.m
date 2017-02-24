@@ -6,7 +6,7 @@ function compile_function(func_name,program_name,additional_folders,exit_on_fail
         additional_folders = {additional_folders};
     end
     
-    if nargin < 1
+    if nargin < 4
         % If we are running headless, exit on error
         exit_on_fail = ~usejava('desktop');
     end
