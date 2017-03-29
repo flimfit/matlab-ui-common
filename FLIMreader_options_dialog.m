@@ -30,7 +30,8 @@ function options = FLIMreader_options_dialog(max_timebins, dt, supports_realignm
     
     
     fh = figure('Name','Loading Options','NumberTitle',...
-                'off','MenuBar','none','WindowStyle','modal','KeyPress',@keypress);
+                'off','MenuBar','none','WindowStyle','modal','KeyPress',@keypress,...
+                'CloseRequestFcn','');
 
     function keypress(obj,evt)
         switch evt.Key
@@ -139,10 +140,8 @@ function options = FLIMreader_options_dialog(max_timebins, dt, supports_realignm
     FigPos(3:4)=[FigWidth FigHeight];
     set(fh, 'Position', FigPos);
     
-    
-    
     uiwait(fh);
-
+    
     options.spatial_binning = getNumberFromPopup(spatial_popup);
     options.num_temporal_bits = ceil(log2(max_timebins)) - get(timebins_popup,'Value') + 1; 
     
