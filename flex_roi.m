@@ -85,6 +85,13 @@ classdef flex_roi < handle
                     obj.points = [x y];
                     obj.closeRoi();
                     
+                case 'freehand'
+                    
+                    if size(obj.points,1) > 10 % user and clicked and held
+                        obj.points = [obj.points; C];
+                        obj.closeRoi();
+                    end
+                    
             end
         end
         
