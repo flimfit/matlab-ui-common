@@ -14,6 +14,7 @@ classdef paint_roi < handle
        mouse_down
        X
        Y
+       first_pos
     end
     
     methods
@@ -35,16 +36,20 @@ classdef paint_roi < handle
             set(obj.fig, 'WindowButtonMotionFcn', @obj.MouseMove);
             set(obj.fig, 'WindowButtonDownFcn', @obj.MouseDown);
             set(obj.fig, 'WindowButtonUpFcn', @obj.MouseUp);
+            set(obj.fig, 'Pointer','crosshair');
         end
         
         function MouseDown(obj,~,~)
             obj.mouse_down = true;
             obj.last_pos = [];
+            
+            C = get(obj.ax, 'CurrentPoint');
+            obj.first_pos = C(1,1:2);
         end
 
         function MouseUp(obj,~,~)
             obj.cleanup();
-            obj.callback(obj.paint_mask);
+            obj.callback(obj.paint_mask,obj.first_pos);
         end
 
         function MouseMove(obj,~,~)
@@ -81,6 +86,7 @@ classdef paint_roi < handle
             set(obj.fig, 'WindowButtonUpFcn', []);
             set(obj.fig, 'Pointer','arrow');
             delete(obj.paint_im);
+            set(obj.fig, 'Pointer','arrow');
         end
         
         function delete(obj)
