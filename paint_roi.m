@@ -59,8 +59,7 @@ classdef paint_roi < handle
                 r = obj.brush_width;
 
                 C = get(obj.ax, 'CurrentPoint');
-                pos = [C(1,1), mod(C(1,2), size(obj.paint_mask,1)) + 1];
-
+                pos = [C(1,1), C(1,2)]; 
                 all_pos = pos;
                 if ~isempty(obj.last_pos)
                     distance = norm(obj.last_pos-pos);
