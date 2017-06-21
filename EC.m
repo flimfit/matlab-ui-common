@@ -1,4 +1,4 @@
-function escaped_callback(fcn,varargin)
+function EC(fcn,varargin)
             
     if strcmp(computer,'MACI64') && ~isdeployed
         fcn(varargin{:});
