@@ -54,7 +54,7 @@ classdef control_binder < handle
                 bd = obj.bindings{i};
                 
                 variable_callback =  @() variable_updated(obj,bd.control,bd.control_type,bd.parameter);
-                obj.flh{end+1} = addlistener(obj.bound_data_source,bd.parameter,'PostSet',@(~,~) escaped_callback(variable_callback));
+                obj.flh{end+1} = addlistener(obj.bound_data_source,bd.parameter,'PostSet',@(~,~) EC(variable_callback));
                 variable_updated(obj,bd.control,bd.control_type,bd.parameter);
             end
         end
@@ -72,7 +72,7 @@ classdef control_binder < handle
                 
                 if ~isempty(obj.bound_data_source)
                     variable_callback =  @() variable_updated(obj,control,control_type,parameter);
-                    obj.flh{end+1} = addlistener(obj.bound_data_source,parameter,'PostSet',@(~,~) escaped_callback(variable_callback));
+                    obj.flh{end+1} = addlistener(obj.bound_data_source,parameter,'PostSet',@(~,~) EC(variable_callback));
                 end
                 
                 variable_updated(obj,control,control_type,parameter);
