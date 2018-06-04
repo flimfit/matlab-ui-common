@@ -8,7 +8,7 @@ function path = get_gui_layout_toolbox()
     if ~exist(path, 'dir')
         
         disp('Downloading gui-layout...');
-        url = 'http://au.mathworks.com/matlabcentral/mlc-downloads/downloads/submissions/47982/versions/11/download/zip';
+        url = 'https://storage.googleapis.com/flimfit-downloads/toolboxes/GUI%20Layout%20Toolbox%202.3.2.zip';
         file = [cdir 'gui-layout.zip'];
         websave(file, url);
         unzip(file, cdir);
