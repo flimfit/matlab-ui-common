@@ -11,7 +11,8 @@ function downloaded = get_library(opts)
     if ~exist(library_path, 'dir') || ~exist([library_path opts.example_file_name], 'file')
         disp(['Downloading ' opts.library_name '...']);
         file = [opts.destination_path opts.library_name '.zip'];
-        websave(file,opts.url);
+        options = weboptions('Timeout',60);
+        websave(file,opts.url,options);
         filenames = unzip(file, opts.destination_path);
 
         new_path = filenames{1};
