@@ -18,10 +18,11 @@ function get_bioformats(destination_path, version)
     downloaded = get_library(opts);
     
     if downloaded
-       movefile('ThirdParty\bfmatlab\bioformats_package.jar','ThirdParty\bfmatlab\bioformats_package.zip')
-       delete_from_zip('ThirdParty\bfmatlab\bioformats_package.zip',...
+       folder = [destination_path filesep opts.folder_name filesep];
+       movefile([folder 'bioformats_package.jar'],[folder 'bioformats_package.zip']);
+       delete_from_zip([folder 'bioformats_package.zip'],...
            {'org\slf4j\impl\StaticMDCBinder.class','org\slf4j\impl\StaticMarkerBinder.class','org\slf4j\impl\StaticLoggerBinder.class'});
-       movefile('ThirdParty\bfmatlab\bioformats_package.zip','ThirdParty\bfmatlab\bioformats_package.jar')
+       movefile([folder 'bioformats_package.zip'],[folder 'bioformats_package.jar']);
     end
     
 end
