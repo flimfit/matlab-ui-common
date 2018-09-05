@@ -15,6 +15,7 @@ function downloaded = get_library(opts)
         websave(file,opts.url,options);
         filenames = unzip(file, opts.destination_path);
 
+        filenames = sort(filenames);
         new_path = [fileparts(filenames{1}) filesep];
         if ~strcmp(new_path, library_path)
             movefile(new_path, library_path);
