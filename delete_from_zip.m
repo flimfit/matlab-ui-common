@@ -5,7 +5,11 @@ function delete_from_zip(zipfile, files)
     
     zipfile = strrep(zipfile,'\','/');
     
-    zip_disk = java.net.URI('jar:file',['/' zipfile],[]);
+    if ispc
+        zipfile = ['/' zipfile];
+    end
+    
+    zip_disk = java.net.URI('jar:file', zipfile, []);
     zipfs = java.nio.file.FileSystems.newFileSystem(zip_disk, zip_properties);
         
     if ~iscell(files)
