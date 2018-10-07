@@ -10,18 +10,21 @@ function downloaded = get_library(opts)
     downloaded = false;
     if ~exist(library_path, 'dir') || ~exist([library_path opts.example_file_name], 'file')
         disp(['Downloading ' opts.library_name '...']);
-        file = [opts.destination_path opts.library_name '.zip'];
-        options = weboptions('Timeout',60);
-        websave(file,opts.url,options);
+        file = [tempdir hash(opts.url) '.zip'];
+        %file = [opts.destination_path opts.library_name '.zip'];
+        
+        if ~exist(file,'file')
+            options = weboptions('Timeout',60);
+            websave(file,opts.url,options);
+        end
+        
         filenames = unzip(file, opts.destination_path);
-
         filenames = sort(filenames);
         new_path = [fileparts(filenames{1}) filesep];
         if ~strcmp(new_path, library_path)
             movefile(new_path, library_path);
         end
         
-        delete(file);
         downloaded = true;
     end
     
