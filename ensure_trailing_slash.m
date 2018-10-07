@@ -25,7 +25,11 @@ function path = ensure_trailing_slash(path)
 
     % Author : Sean Warren
 
-    if ~strcmp(path,filesep)
+    if isempty(path)
+        path = filesep;
+    end
+    if ~strcmp(path(end),filesep)
        path = [path filesep];
     end
+    
 end
