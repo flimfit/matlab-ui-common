@@ -26,10 +26,10 @@ function get_omero(destination_path, version)
         end
     end
         
-    get_file([omero_path 'ini4j.jar'],...
-             'https://dl.bintray.com/imperial-photonics/omeUiUtils/OMEuiUtils-0.1.6.jar');
-    
     get_file([omero_path 'OMEuiUtils.jar'],...
+             'https://storage.googleapis.com/flimfit-downloads/ome-ui-utils/OMEuiUtils-0.1.5.jar');
+    
+    get_file([omero_path 'ini4j.jar'],...
              'http://artifacts.openmicroscopy.org/artifactory/maven/org/ini4j/ini4j/0.3.2/ini4j-0.3.2.jar');
     
 end
