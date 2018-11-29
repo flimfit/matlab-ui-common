@@ -1,4 +1,4 @@
-function get_omero(destination_path, version)
+function get_omero(destination_path, version, ome_ui_utils_version)
 % Add bioformats to path.
 % If required, download from OME and unzip first
 
@@ -7,6 +7,9 @@ function get_omero(destination_path, version)
     end
     if nargin < 2
         version = '5.3';
+    end
+    if nargin < 3
+        ome_ui_utils_version = '0.1.7';
     end
     
     opts.destination_path = destination_path;
@@ -27,7 +30,7 @@ function get_omero(destination_path, version)
     end
         
     get_file([omero_path 'OMEuiUtils.jar'],...
-             'https://storage.googleapis.com/flimfit-downloads/ome-ui-utils/OMEuiUtils-0.1.5.jar');
+             ['https://storage.googleapis.com/flimfit-downloads/ome-ui-utils/OMEuiUtils-' ome_ui_utils_version '.jar']);
     
     get_file([omero_path 'ini4j.jar'],...
              'http://artifacts.openmicroscopy.org/artifactory/maven/org/ini4j/ini4j/0.3.2/ini4j-0.3.2.jar');
