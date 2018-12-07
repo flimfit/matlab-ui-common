@@ -30,17 +30,8 @@ function options = FLIMreader_options_dialog(max_timebins, dt, supports_realignm
     
     
     fh = figure('Name','Loading Options','NumberTitle',...
-                'off','MenuBar','none','WindowStyle','modal','KeyPress',@keypress,...
-                'CloseRequestFcn','');
-
-    function keypress(obj,evt)
-        switch evt.Key
-            case 'return'
-                uiresume(obj);
-            case 'escape'
-                uiresume(obj);
-        end
-    end
+                'off','MenuBar','none','WindowStyle','modal',...
+                'CloseRequestFcn','','Visible','off');
             
     fig_layout = uiextras.VBox('Parent',fh, 'Spacing', 5, 'Padding', 5);
     
@@ -115,31 +106,17 @@ function options = FLIMreader_options_dialog(max_timebins, dt, supports_realignm
     
     uicontrol('Style','pushbutton','Parent',fig_layout,'String','OK','Callback',@(~,~) uiresume(fh));
 
-    set(fig_layout,'Sizes',fig_sizes)
+    set(fig_layout,'Sizes',fig_sizes);
     
-    % move to centre
     set(fh, 'Units', 'pixels');
-    FigWidth = 320;
-    FigHeight = sum(fig_sizes) + 20;
-    if isempty(gcbf)
-        ScreenUnits=get(0,'Units');
-        set(0,'Units','pixels');
-        ScreenSize=get(0,'ScreenSize');
-        set(0,'Units',ScreenUnits);
-
-        FigPos(1)=1/2*(ScreenSize(3)-FigWidth);
-        FigPos(2)=2/3*(ScreenSize(4)-FigHeight);
-    else
-        GCBFOldUnits = get(gcbf,'Units');
-        set(gcbf,'Units','pixels');
-        GCBFPos = get(gcbf,'Position');
-        set(gcbf,'Units',GCBFOldUnits);
-        FigPos(1:2) = [(GCBFPos(1) + GCBFPos(3) / 2) - FigWidth / 2, ...
-                       (GCBFPos(2) + GCBFPos(4) / 2) - FigHeight / 2];
-    end
-    FigPos(3:4)=[FigWidth FigHeight];
-    set(fh, 'Position', FigPos);
+    fig_width = 320;
+    fig_height = sum(fig_sizes) + 20;
+    fh.Position = [fh.Position(1:2) fig_width fig_height];
     
+    movegui(fh,'center');    
+    resume_gui_on_enter(fh);
+    fh.Visible = 'on';
+
     uiwait(fh);
     
     options.spatial_binning = getNumberFromPopup(spatial_popup);
