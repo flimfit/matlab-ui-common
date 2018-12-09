@@ -25,9 +25,7 @@ function compile_function(func_name,program_name,additional_folders,exit_on_fail
     function run()
 
         % Get version
-        [~,ver] = system('git describe','-echo');
-        ver = ver(1:end-1);
-        is_release = isempty(regexp(ver,'-\d-+[a-z0-9]+','ONCE'));
+        [ver,is_release] = get_git_version();
 
         % Build App
         if exist(['.' filesep 'build'],'dir')
