@@ -52,8 +52,12 @@ function im=display_flim(data,mask,lim,varargin)
         options.int_lim = [0 prctile(intensity(:),95)];
     end
     if ~isfield(options,'gamma')
-        prof = get_profile();  
-        options.gamma = prof.Display.Gamma_Factor;
+        if exist('get_profile','file') % If we're running from FLIMfit
+            prof = get_profile();  
+            options.gamma = prof.Display.Gamma_Factor;
+        else
+            options.gamma = 1;
+        end
     end
     if ~isfield(options,'show_colormap')
         options.show_colormap = false;
