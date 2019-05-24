@@ -6,12 +6,17 @@ function get_bioformats(destination_path, version)
         destination_path = [fileparts(mfilename('fullpath')) filesep];
     end
     if nargin < 2
-        version = '5.8.2';
+        version = '6.1.0';
     end
     
     opts.destination_path = destination_path;
     opts.library_name = 'bioformats';
     opts.url = ['http://downloads.openmicroscopy.org/bio-formats/' version '/artifacts/bfmatlab.zip'];
+    
+    if nargin < 2 % Use custom version with LAS ROI fix
+        opts.url = 'https://storage.googleapis.com/flimfit-downloads/bioformats-custom/bfmatlab-6.1.0-SNAPSHOT.zip';
+    end
+    
     opts.folder_name = 'bfmatlab';
     opts.example_file_name = 'bfopen.m';
     
