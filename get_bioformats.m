@@ -14,7 +14,7 @@ function get_bioformats(destination_path, version)
     opts.url = ['http://downloads.openmicroscopy.org/bio-formats/' version '/artifacts/bfmatlab.zip'];
     
     if nargin < 2 % Use custom version with LAS ROI fix
-        opts.url = 'https://storage.googleapis.com/flimfit-downloads/bioformats-custom/bfmatlab-6.1.0-SNAPSHOT.zip';
+        opts.url = 'https://storage.googleapis.com/flimfit-downloads/bioformats-custom/bfmatlab-6.1.0-SNAPSHOT2.zip';
     end
     
     opts.folder_name = 'bfmatlab';
