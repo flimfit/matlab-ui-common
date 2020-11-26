@@ -7,7 +7,6 @@ function EC(fcn,varargin)
             fcn(varargin{:});
         catch e
             d = getReport(e,'extended','hyperlinks','off');
-            bug_snag(e);
             clipboard('copy',d);
             error_dialog({d});
         end
